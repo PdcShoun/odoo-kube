@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment # Create deployment
+metadata:
+  name: odoo # Set the name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: odoo
+  template:
+    metadata:
+      labels:
+        app: odoo
+    spec: # Pod config
+      containers:
+        - name: odoo
+          image: amd64/odoo:16.0 # Docker image
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 8069 # Exposing the container port 5432 for PostgreSQL client connections.
+          # env:
+          #   - name: HOST
+          #     value: postgres.odoo
+          #   - name: USER
+          #     value: odoo
+          #   - name: PASSWORD
+          #     value: odoo
+          # envFrom:
+          #   - configMapRef:
+          #       name: odoo-config # Using the ConfigMap postgres-secret
+          volumeMounts:
+            - mountPath: /etc/odoo
+              name: odoo-config-volume
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "750m"
+      volumes:
+        - configMap:
+            name: odoo-config
+          name: odoo-config-volume

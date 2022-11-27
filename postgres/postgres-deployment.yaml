@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment # Create deployment
+metadata:
+  name: postgres # Set the name of the deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: postgres
+  template:
+    metadata:
+      labels:
+        app: postgres
+    spec: # Pod config
+      containers:
+        - name: postgres
+          image: postgres:13 # Docker image
+          imagePullPolicy: "IfNotPresent"
+          ports:
+            - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
+          envFrom:
+            - configMapRef:
+                name: postgres-config # Using the ConfigMap postgres-secret
+          volumeMounts:
+            - mountPath: /var/lib/postgresql/data
+              name: postgresdb # Name Match line 35
+          resources: # resource of deployment
+            requests: # minimum of resource
+              memory: "64Mi" # Ram 64 MB
+              cpu: "250m" # CPU 0.25 core
+            limits: # maximum of resource
+              memory: "128Mi" # Ram 128 MB
+              cpu: "500m" # CPU 0.5 core
+      volumes:
+        - name: postgresdb
+          persistentVolumeClaim:
+            claimName: postgres-pv-claim
