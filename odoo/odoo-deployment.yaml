@@ -6,7 +6,7 @@ spec:
   replicas: 1
   selector:
     matchLabels:
-      app: odoo
+      app: odoo # Name for odoo-service.yaml to Match 
   template:
     metadata:
       labels:
@@ -29,21 +29,21 @@ spec:
           #   - configMapRef:
           #       name: odoo-config # Using the ConfigMap postgres-secret
           volumeMounts:
-            - mountPath: /etc/odoo
-              name: odoo-config-volume
-            - mountPath: /var/lib/odoo
+            - mountPath: /etc/odoo # Path odoo.conf 
+              name: odoo-config-volume # Line 46
+            - mountPath: /var/lib/odoo # Path cache
               name: cache-volume
           resources:
-            requests:
+            requests: # minimum of resource
               memory: "64Mi"
               cpu: "250m"
-            # limits:
+            # limits: # maximum of resource [Optional]
             #   memory: "128Mi"
             #   cpu: "750m"
       volumes:
         - configMap:
-            name: odoo-config
-          name: odoo-config-volume
+            name: odoo-config # name From odoo-configmap.yaml < set odoo.conf
+          name: odoo-config-volume # name configmap
         - name: cache-volume
           emptyDir:
             sizeLimit: 500Mi

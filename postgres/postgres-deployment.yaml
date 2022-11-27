@@ -20,18 +20,18 @@ spec:
             - containerPort: 5432 # Exposing the container port 5432 for PostgreSQL client connections.
           envFrom:
             - configMapRef:
-                name: postgres-config # Using the ConfigMap postgres-secret
+                name: postgres-config # Using the ConfigMap postgres-configmap.yaml
           volumeMounts:
             - mountPath: /var/lib/postgresql/data
-              name: postgresdb # Name Match line 35
+              name: postgresdb # Line 35
           resources: # resource of deployment
             requests: # minimum of resource
               memory: "64Mi" # Ram 64 MB
               cpu: "250m" # CPU 0.25 core
-            limits: # maximum of resource
+            limits: # maximum of resource [Optional]
               memory: "128Mi" # Ram 128 MB
               cpu: "500m" # CPU 0.5 core
       volumes:
-        - name: postgresdb
+        - name: postgresdb # Name for deployment to use
           persistentVolumeClaim:
-            claimName: postgres-pv-claim
+            claimName: postgres-pv-claim # Match PVC name

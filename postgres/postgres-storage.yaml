@@ -17,7 +17,7 @@ spec:
 kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim
+  name: postgres-pv-claim # PVC name match in Deployment.yaml
   labels:
     app: postgres
 spec:

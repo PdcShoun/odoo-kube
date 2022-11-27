@@ -7,6 +7,6 @@ metadata:
 spec:
   type: NodePort # Sets the service type
   ports:
-    - port: 8069 # Sets the port to run the postgres application
+    - port: 8069 # Sets the port to run the odoo application
   selector:
-    app: odoo
+    app: odoo # Look for deployment name

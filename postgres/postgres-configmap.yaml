@@ -4,7 +4,7 @@ metadata:
   name: postgres-config
   labels:
     app: postgres
-data:
+data: # Set Variables
   POSTGRES_DB: postgres
   POSTGRES_USER: odoo
   POSTGRES_PASSWORD: odoo
