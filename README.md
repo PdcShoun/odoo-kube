@@ -1,3 +1,8 @@
+Minikube start
+```
+minikube start
+```
+
 Create Namespace
 ```
 kubectl create ns odoo 

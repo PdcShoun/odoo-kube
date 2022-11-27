@@ -5,9 +5,8 @@ metadata:
 data:
   odoo.conf: |
     [options]
-
-    admin_passwd = r00t2
     data_dir = /var/lib/odoo
+    admin_passwd = r00t2
 
     db_host = postgres.odoo
     db_port = 5432
