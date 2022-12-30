@@ -1,10 +1,10 @@
 kind: PersistentVolume
 apiVersion: v1
 metadata:
-  name: postgres-pv-volume
+  name: odoo-pv-volume
   labels:
     type: local
-    app: postgres
+    app: odoo
 spec:
   storageClassName: manual
   capacity:
@@ -12,18 +12,18 @@ spec:
   accessModes:
     - ReadWriteMany
   hostPath:
-    path: "/mnt/data"
+    path: "/mnt/data-odoo"
 ---
-kind: PersistentVolumeClaim # PVC 
+kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
-  name: postgres-pv-claim # PVC name match in Deployment.yaml
+  name: odoo-pv-claim # PVC name match in Deployment.yaml
   labels:
-    app: postgres # Line 7
+    app: odoo
 spec:
   storageClassName: manual
   accessModes:
     - ReadWriteMany
   resources:
     requests:
-      storage: 5Gi # Line 11
+      storage: 5Gi

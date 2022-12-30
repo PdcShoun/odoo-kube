@@ -3,11 +3,11 @@ kind: Deployment # Create deployment
 metadata:
   name: postgres # Set the name of the deployment
 spec:
-  replicas: 1
+  replicas: 1 # Amount of Pod = 1 Pod
   selector:
     matchLabels:
-      app: postgres
-  template:
+      app: postgres # Match template metadata labels app
+  template: # Run Pod template
     metadata:
       labels:
         app: postgres
@@ -28,9 +28,9 @@ spec:
             requests: # minimum of resource
               memory: "64Mi" # Ram 64 MB
               cpu: "250m" # CPU 0.25 core
-            limits: # maximum of resource [Optional]
-              memory: "128Mi" # Ram 128 MB
-              cpu: "500m" # CPU 0.5 core
+            # limits: # maximum of resource [Optional]
+            #   memory: "128Mi" # Ram 128 MB
+            #   cpu: "500m" # CPU 0.5 core
       volumes:
         - name: postgresdb # Name for deployment to use
           persistentVolumeClaim:

@@ -5,8 +5,16 @@ metadata:
   labels:
     app: postgres # Defines app to create service for
 spec:
-  type: NodePort # Sets the service type
+  type: ClusterIP # Sets the service type. Look for service same Node
   ports:
     - port: 5432 # Sets the port to run the postgres application
+      targetPort: 5432 # Pod
   selector: # Match service to deployment > spec > selector > matchLabels > app: postgres
     app: postgres
+
+# Mac
+# minikube NodePort
+# kube ClusterIP
+
+# Linux NodePort > PORT:30000+ AutoGenFromKube
+# kube ClusterIP service IP
